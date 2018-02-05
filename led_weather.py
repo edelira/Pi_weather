@@ -19,47 +19,58 @@ strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, 
 # Intialize the library (must be called once before other functions).
 strip.begin()
 
-def twinkle (strip,color,count,speed):
-    for i in range(count):
-        strip.setPixelColor(randrange(LED_COUNT), color)
-        strip.show()
-        time.sleep(speed)
-
-def snowspark(strip,color,sparklenght,speed):
-    colorWipe(strip, Color(55, 55, 55))
-
-    light = randrange(LED_COUNT)
-    strip.setPixelColor(light,color)
-    strip.show()
-    time.sleep(sparklenght)
-    strip.setPixelColor(light,Color(55,55,55))
-    strip.show()
-    time.sleep(speed)
-        
 def colorWipe(strip, color, wait_ms=50):
 	"""Wipe color across display a pixel at a time."""
 	for i in range(strip.numPixels()):
 		strip.setPixelColor(i, color)
 		strip.show()
-        
+def twinkle (strip,color,count,speed):
+    repeat = 0
+    while repeat != 10:
+        repeat += 1
+        for i in range(count):
+            strip.setPixelColor(randrange(LED_COUNT), color)
+            strip.show()
+            time.sleep(speed)
+        ColorWipe(strip, Color(0,0,0))
+
+def snowspark(strip,color,sparklenght,speed):
+    repeat = 0
+    while repeat != 10:
+        repeat += 1
+        colorWipe(strip, Color(55, 55, 55))
+
+        light = randrange(LED_COUNT)
+        strip.setPixelColor(light,color)
+        strip.show()
+        time.sleep(sparklenght)
+        strip.setPixelColor(light,Color(55,55,55))
+        strip.show()
+        time.sleep(speed)
+                
 def thunder(strip, frequency):
-    light = 255
-    colorWipe(strip, Color(255, 255, 255))
-    
-    while light != 0 :
-        light -=15
-        colorWipe(strip, Color(light, light, light))
-        time.sleep(.02)
-    time.sleep(randrange(frequency))
+    repeat = 0
+    while repeat != 10:
+        repeat += 1
+        light = 255
+        colorWipe(strip, Color(255, 255, 255))
+        
+        while light != 0 :
+            light -=15
+            colorWipe(strip, Color(light, light, light))
+            time.sleep(.02)
+        time.sleep(randrange(frequency))
 def moonlight(strip,intensity):
     for i in range(intensity):
         strip.setPixelColor(i,Color(255, 248, 100))
         strip.show()
+        time.sleep(5)
 def sunlight(strip, intensity):
     for i in range(intensity):
         strip.setPixelColor(i,Color(200, 135, 17))
         strip.show()
-
+        time.sleep(5)
+        
 API_key = "Place API key here"
 
 while True:
@@ -75,52 +86,52 @@ while True:
 	if icon == '01d':
 		print "clear sky"
 		sunlight(strip,13)
-	if icon == '01n':
+	elif icon == '01n':
 		print "clear sky night"	
 		moonlight(strip,13)
-	if icon == '02d':
+	elif icon == '02d':
 		print "few clouds"
 		sunlight(strip,9)
-	if icon == '02n':
+	elif icon == '02n':
 		print "few clouds night"
 		moonlight(strip,9)
-	if icon == '03d':
+	elif icon == '03d':
 		print "scattered clouds"
 		sunlight(strip,6)
-	if icon == '03n':
+	elif icon == '03n':
 		print "scattered clouds night"
 		moonlight(strip,6)
-	if icon == '04d':
+	elif icon == '04d':
 		print "broken clouds"
 		sunlight(strip,3)
-	if icon == '04n':
+	elif icon == '04n':
 		print "broken clouds night"
 		moonlight(strip,3)
-	if icon == '09d':
+	elif icon == '09d':
 		print "shower rain"	
 		twinkle(strip,Color(0,17,255),4,1)
-	if icon == '09n':
+	elif icon == '09n':
 		print "shower rain night"
 		twinkle(strip,Color(0,17,255),4,1)
-	if icon == '10d':
+	elif icon == '10d':
 		print "rain"
 		twinkle(strip,Color(0,17,255),9,.5)
-	if icon == '10n':
+	elif icon == '10n':
 		print "rain night"
 		twinkle(strip,Color(0,17,255),9,.5)
-	if icon == '11d':
+	elif icon == '11d':
 		print "thunderstorm"
 		thunder(strip,10)
-	if icon == '11n':
+	elif icon == '11n':
 		print "thunderstorm night"	
 		thunder(strip,10)
-	if icon == '13d':
+	elif icon == '13d':
 		print "snow"
 		snowspark(strip,Color(255,255,255),.2,2)
-	if icon == '13n':
+	elif icon == '13n':
 		print "snow night"
 		snowspark(strip,Color(255,255,255),.2,2)
-	if icon == '50d':
+	elif icon == '50d':
 		print "mist"	
-	if icon == '50n':
+	elif icon == '50n':
 		print "mist night"
